@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2018_04_27_235124) do
     t.integer "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "appetite"
   end
 
   create_table "purchases", force: :cascade do |t|
