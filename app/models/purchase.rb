@@ -3,7 +3,7 @@ class Purchase < ApplicationRecord
     belongs_to :candy
         
 
- def not_enough_money
+ def cash_issue
        
          self.candy.cost >= self.user.cash
         #  binding.pry
@@ -12,57 +12,54 @@ class Purchase < ApplicationRecord
              "Sorry. You do not have enough money to buy #{self.candy.name}."
     end
       
-    def too_full
-     self.attraction.min_height >= self.user.height 
+    def hunger_issue
+     self.candy.appetite >= self.user.appetite
     
     end
-    def height_problem
-         "Sorry. You are not tall enough to ride the #{self.attraction.name}." 
+    def hunger_problem
+         "Sorry. You are not hungry enough to eat this #{self.candy.name}." 
     end
     def multiple_issues
-         self.attraction.tickets >= self.user.tickets && self.attraction.height >= self.user.height
+         self.candy.appetite >= self.user.appetite && self.candy.cost >= self.user.cash
     end
     def multiple_problems
-        "Sorry. You do not have enough tickets to ride the #{self.attraction.name}. You are not tall enough to ride the #{self.attraction.name}."
+        "Sorry. You do not have enough money to buy #{self.candy.name}. Sorry. You are not hungry enough to eat this #{self.candy.name}."
     end
 
-    def go_for_it
-        self.user.tickets >= self.attraction.tickets && self.user.height >= self.attraction.min_height
+    def get_caveties
+        self.candy.appetite <= self.user.appetite && self.candy.cost <= self.user.cash
     end
     
     def thank_you
-        "Thanks for riding the #{self.attraction.name}!"
+        "Thanks for purchasing #{self.candy.name}!"
     end
             
         
-    def update_feelings
-    new_happiness = self.user.happiness + self.attraction.happiness_rating
-    new_nausea = self.user.nausea + self.attraction.nausea_rating
-    new_tickets =  self.user.tickets - self.attraction.tickets
+    def update_qualities
+    new_appetite = self.user.appetite + self.candy.appetite
+    new_taste = self.candy.taste
+    new_cash =  self.user.cash - self.candy.cost
     self.user.update(
-      :happiness => new_happiness,
-      :nausea => new_nausea,
-      :tickets => new_tickets
+      :appetite => new_appetite,
+      :taste => new_taste,
+      :cash => new_cash
     )
     end
     
 
-    def take_ride
-    # ride = Ride.create(:user_id => user.id, :attraction_id => attraction.id)
-
-    # ride.user_id = user.id
-    if go_for_it
-        update_feelings
+    def purchase_candy
+    if get_caveties
+        update_qualities
         thank_you
-    elsif too_short && !too_few
-       height_problem
-    elsif too_short && too_few
+    elsif cash_issue && !hunger_issue
+       cash_problem
+    elsif hunger_issue && !cash_issue  
+       hunger_problem
+    elsif cash_issue && hunger_issue
         multiple_problems
-    elsif too_few  
-       ticket_problem
-   end
+    end
  
 #   binding.pry
     end
 end
-end
+
