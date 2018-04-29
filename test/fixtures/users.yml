@@ -3,15 +3,15 @@
 one:
   name: MyString
   password_digest: MyString
-  employee: 
-  default: MyString
-  'false': MyString
+  employee: false
   cash: 1
+  appetite: 1
+  taste: 1
 
 two:
   name: MyString
   password_digest: MyString
-  employee: 
-  default: MyString
-  'false': MyString
+  employee: false
   cash: 1
+  appetite: 1
+  taste: 1
