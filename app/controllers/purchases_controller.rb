@@ -13,7 +13,7 @@ class PurchasesController < ApplicationController
   
 private
 
-def ride_params
+def purchase_params
 params.require(:purchase).permit(:user_id, :purchase_id)
 end
 end
