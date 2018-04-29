@@ -46,8 +46,8 @@ def set_candy
 end
 
 def candy_params
-params.require(:candy).permit(:name, :taste, :cost)
+params.require(:candy).permit(:name, :taste, :cost, :appetite)
 end
 
 end
-end
+

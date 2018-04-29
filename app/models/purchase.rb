@@ -26,7 +26,7 @@ class Purchase < ApplicationRecord
         "Sorry. You do not have enough money to buy #{self.candy.name}. Sorry. You are not hungry enough to eat this #{self.candy.name}."
     end
 
-    def get_caveties
+    def get_cavities
         self.candy.appetite <= self.user.appetite && self.candy.cost <= self.user.cash
     end
     
@@ -48,7 +48,7 @@ class Purchase < ApplicationRecord
     
 
     def purchase_candy
-    if get_caveties
+    if get_cavities
         update_qualities
         thank_you
     elsif cash_issue && !hunger_issue
